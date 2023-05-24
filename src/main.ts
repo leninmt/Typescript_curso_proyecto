@@ -171,3 +171,26 @@ class Gradebook {
     }
 
 }
+
+function generateReport():void {
+    let reportGrade: Gradebook = new Gradebook(
+        students, 
+        activities, 
+        gradebookSetups, 
+        assignments, 
+        teachers
+    ) ;
+
+    let rowReport: GradebookDTO[] = reportGrade.buildGradebookDTOFromAssignment();
+    let reportTable: HTMLTableElement = document.getElementById("report") as HTMLTableElement
+    rowReport.forEach((itemDTO)=>{
+
+        let tr: HTMLTableRowElement;
+        let td: HTMLTableCellElement;
+        tr = reportTable.insertRow(0);
+        td = tr.insertCell(0);
+        td.innerHTML = itemDTO.course;
+        td = tr.insertCell(1);
+        td.innerHTML = itemDTO.student;
+    })
+}
