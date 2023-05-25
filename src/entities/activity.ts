@@ -1,4 +1,3 @@
-export interface Activity{
-    nameActivity : string,
-    
+export interface Activity {
+    name: string
 }

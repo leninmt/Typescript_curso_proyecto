@@ -1,6 +1,6 @@
-import { Person } from "./person";
-export interface Teachers extends Person{
-    title: string;
-    asignature : string;
-    carrer : string;
+import { Person } from "./Person";
+
+export interface Teacher extends Person{
+    title:string;
+    asignature: "Interfaces" | "Programacion" | "Metodologias";
 }

@@ -1,88 +1,103 @@
-import { Activity } from "./entity/Activity";
-import { Assignment } from "./entity/Assignment";
-import { GradebookDTO } from "./entity/GradebookDTO";
-import { GradebookSetup } from "./entity/GradebookSetup";
-import { Student } from "./entity/Student";
-import { Teacher } from "./entity/Teacher";
-
-
+import{ Student } from "./entities/Student"
+import{ Teacher } from "./entities/Teacher";
+import { Activity } from "./entities/Activity";
+import { Assignment } from "./entities/Assignments";
+import { GradebookDTO } from "./entities/GradebookDTO";
+import { GradebookSetup } from "./entities/GradebookSetup";
 let students: Student[] = [];
 let teachers: Teacher[] = [];
 let activities: Activity[] = [];
 let gradebookSetups: GradebookSetup[] = [];
 let assignments: Assignment[] = [];
-
+enum Carrera {
+    turismo = "Turismo",
+    marketing = "Marketing",
+    software = "Software",
+}
 enum Course {
     GraphicDesign = "Graphic Design",
     Database = "Database",
     CommunityManager = "Community Manager"
 }
-
-function addStudent(): void {
-    let currentStudent: Student =
-    {
-        dni: readFromHtml("student_dni"),
-        fullName: readFromHtml("student_fullname"),
-        level: parseInt(readFromHtml("student_level"))
+function addStudent(): void{
+    let currentStudent:Student ={
+        
+        name: readFromHtml("nameStudent"),
+        dni: readFromHtml("identStudent"),
+        adress: readFromHtml("adressStudent"),
+        registration:readFromHtml("registrationStudent"),
+        carrer: readFromHtml("carrerStudent"),
+        level: readFromHtml("levelStudent")
     }
     students.push(currentStudent);
+    console.log(students);
     console.table(students);
+
 }
 
-function addTeacher(): void {
-    let currentTeacher: Teacher =
-    {
-        dni: readFromHtml("teacher_dni"),
-        fullName: readFromHtml("teacher_fullname"),
-        knowledge_are: readFromHtml("teacher_area") as "Software" | "Marketing" | "Art"
+function addTeacher(): void{
+    let currentTeacher: Teacher = {
+       name: readFromHtml("nameTeacher"),
+       dni: readFromHtml("idTeacher"),
+       adress: readFromHtml("addressTeacher"),
+       title:readFromHtml("titleTeacher"),
+       asignature: readFromHtml("asignatureTeacher") as "Interfaces" | "Programacion" | "Metodologias",
     }
     teachers.push(currentTeacher);
+    console.log(teachers);
     console.table(teachers);
+   }
+
+function readHtml(id: string): string{
+    return (<HTMLInputElement>document.getElementById(id)).value;
 }
 
-function addActivity(): void {
-    let currentActivity: Activity =
-    {
+
+function addActivity(): void{
+    let currentActivity:Activity = {
         name: readFromHtml("activity_name"),
-    }
+    } 
+
     activities.push(currentActivity);
     console.table(activities);
     initSelect();
 }
 
-function addAssignment(): void {
-    let currentAssignment:Assignment =
-    {
-        student: readFromHtml("assignment_student"),
-        gradebooksetup: readFromHtml("gradebook_activity"),
-        grade: parseInt(readFromHtml("assignment_grade"))
-    }
-    assignments.push(currentAssignment);
-    console.table(assignments);
-    initSelect();
-}
-
-function addGradebookSetup(): void {
-    let currentGradebookSetup: GradebookSetup =
-    {
+function addGradebookSetup(): void{
+    let currentGradebookSetup:GradebookSetup = {
         value: readFromHtml("gradebook_value"),
         course: readFromHtml("gradebook_course"),
         activity: readFromHtml("gradebook_activity"),
-        maximun_grade: parseInt(readFromHtml("gradebook_maximun_grade"))
-    }
+        maximun_grade: parseInt(readFromHtml("gradebook_maximun_grade")),
+        gradebooksetup: ""
+    } 
+
     gradebookSetups.push(currentGradebookSetup);
     console.table(gradebookSetups);
     initSelect();
 }
 
+function addAssigment(): void{
+    let currentAssignment:Assignment = {
+        student: readFromHtml("assignmentStudent"),
+        gradebooksetup: readFromHtml("asignmentGradebooksetup"),
+        grade: parseInt( readFromHtml("asignmentGrade"))
+    } 
 
-function readFromHtml(id: string): string {
-    return (<HTMLInputElement>document.getElementById(id)).value;
+    assignments.push(currentAssignment);
+    console.table(assignments);
+
+    initSelect();
 }
 
-function initSelect(): void {
 
-    let gradebookCourse = document.getElementById("gradebook_course") as HTMLSelectElement;
+function readFromHtml(id: string):string {
+    return (<HTMLInputElement> document.getElementById(id)).value;
+}
+
+function initSelect():void{
+
+    let gradebookCourse =  document.getElementById("gradebook_course") as HTMLSelectElement;
 
     document.querySelectorAll("#gradebook_course option").forEach(option => option.remove());
 
@@ -96,8 +111,10 @@ function initSelect(): void {
         }
     );
 
-    let gradebookActivity = document.getElementById("gradebook_activity") as HTMLSelectElement;
-    document.querySelectorAll("#gradebook_activity option").forEach(Option => Option.remove());
+    let gradebookActivity =  document.getElementById("gradebook_activity") as HTMLSelectElement;
+
+    document.querySelectorAll("#gradebook_activity option").forEach(option => option.remove());
+
     activities.forEach(
         (activity) => {
             let option = document.createElement("option");
@@ -107,32 +124,59 @@ function initSelect(): void {
         }
     );
 
-    let assignment_student = document.getElementById("assignment_student") as HTMLSelectElement;
-    document.querySelectorAll("#assignment_student option").forEach(Option => Option.remove());
+    let assignmentStudent =  document.getElementById("assignmentStudent") as HTMLSelectElement;
+
+    document.querySelectorAll("#assignmentStudent option").forEach(option => option.remove());
+    
     students.forEach(
         (value) => {
             let option = document.createElement("option");
-            option.value = value.dni;
-            option.text = value.fullName;
-            assignment_student.add(option);
+            option.value = value.name;
+            option.text = value.name;
+           assignmentStudent.add(option);
         }
     );
 
+    let assignmentValue =  document.getElementById("asignmentGradebooksetup") as HTMLSelectElement;
 
+    document.querySelectorAll("#asignmentGradebooksetup option").forEach(option => option.remove());
+
+    assignments.forEach(
+        (data) => {
+            let option = document.createElement("option");
+            option.value = data.gradebooksetup;
+            option.text = data.gradebooksetup;
+           assignmentValue.add(option);
+        }
+    );
+
+    let assignmentSetup =  document.getElementById("asignmentGradebooksetup") as HTMLSelectElement;
+
+    document.querySelectorAll("#asignmentGradebooksetup option").forEach(option => option.remove());
+
+    gradebookSetups.forEach(
+        (data) => {
+            let option = document.createElement("option");
+            option.value = data.value;
+            option.text = data.value;
+           assignmentSetup.add(option);
+        }
+    );
+
+    
 }
 
-initSelect();
+initSelect()
 
 class Gradebook {
-
-    constructor(
-        public students: Student[],
-        public activities: Activity[],
-        public gradebookSetups: GradebookSetup[],
-        public assignments: Assignment[],
-        public teachers?: Teacher[],
-        )
+       
+    constructor(public students: Student[], 
+                public activities: Activity[], 
+                public gradebookSetups: GradebookSetup[], 
+                public assignments: Assignment[], 
+                public teachers: Teacher[])
     {};
+    
 
     public buildGradebookDTOFromAssignment(): GradebookDTO[] {
         let gradebookDTOs: GradebookDTO[] = [];
@@ -145,23 +189,25 @@ class Gradebook {
 
                 let rowGradebook:GradebookDTO = {
                     //Course
-                    course:currentGradebooksetup.course,
+                    course: currentGradebooksetup.course,
                     //Student
-                    studentName: currentStudent.fullName,
+                    studentName: currentStudent.name,
                     lastName: "",
                     level: currentStudent.level,
                     dni: assignment.student,
-                    fullName: currentStudent.fullName,
+                    name: currentStudent.name,
                     //GradebookSetup
                     value: "",
                     activity: "",
                     maximun_grade: 0,
                     //Activity
-                    name: "",
                     //Assignment
                     student: assignment.student,
                     gradebooksetup: assignment.gradebooksetup,
-                    grade: assignment.grade
+                    grade: assignment.grade,
+                    registration: "",
+                    carrer: "",
+                    adress: ""
                 }
                 gradebookDTOs.push(rowGradebook);
             }
@@ -172,19 +218,18 @@ class Gradebook {
 
 }
 
-function generateReport():void {
+function generateReport(): void{
     let reportGrade: Gradebook = new Gradebook(
         students, 
         activities, 
         gradebookSetups, 
         assignments, 
         teachers
-    ) ;
-
+    );
+    
     let rowReport: GradebookDTO[] = reportGrade.buildGradebookDTOFromAssignment();
-    let reportTable: HTMLTableElement = document.getElementById("report") as HTMLTableElement
-    rowReport.forEach((itemDTO)=>{
-
+    let reportTable: HTMLTableElement = document.getElementById("report") as HTMLTableElement;
+    rowReport.forEach((itemDTO)=> {
         let tr: HTMLTableRowElement;
         let td: HTMLTableCellElement;
         tr = reportTable.insertRow(0);
