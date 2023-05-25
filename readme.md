@@ -5,26 +5,27 @@ ___
 
 Registro de Estudiantes
 
-!["registroEstudiante"](img/estudiante.jpg)
+!["registroEstudiante"](https://github.com/leninmt/Typescript_curso_proyecto/blob/main/Img/estudiante.jpg)
 
 
 ---
 
 Registro de Docentes
 
-!["registroDocentes"](img/docente.jpg)
+!["registroDocentes"](https://github.com/leninmt/Typescript_curso_proyecto/blob/main/Img/docente.jpg)
 
 ---
 
 Formulario Actividad
 
-!["registroEstudiante"](img/actividades.jpg)
+!["registroActividad"](https://github.com/leninmt/Typescript_curso_proyecto/blob/main/Img/actividades.jpg)
 
 ---
 Configuaración del Libro de Calificaciónes
 
-!["registroEstudiante"](img/libro.jpg)
+!["registroLibro"](https://github.com/leninmt/Typescript_curso_proyecto/blob/main/Img/libro.jpg)
 
 ---
 Formulario Dinámico Asignación
-!["registroEstudiante"](img/asignacion.jpg)
+
+!["registroAsignacion"](https://github.com/leninmt/Typescript_curso_proyecto/blob/main/Img/asignacion.jpg)
